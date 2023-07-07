@@ -21,9 +21,9 @@ export const getDb = async () => {
 
   const jateDb = await openDB("jate", 1);
 
-  const tran = jateDb.transaction("contact", "readonly");
+  const tx = jateDb.transaction("contact", "readonly");
 
-  const store = tran.objectStore("jate");
+  const store = tx.objectStore("jate");
 
   const request = store.getAll();
 
