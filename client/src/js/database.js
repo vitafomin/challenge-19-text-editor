@@ -22,7 +22,7 @@ export const putDb = async (content) => {
 
   const store = tx.objectStore("jate");
 
-  const request = store.put({ id: id, jate: content });
+  const request = store.put({ jate: content });
 
   const result = await request;
 
@@ -35,17 +35,27 @@ export const getDb = async () => {
   console.log("This is to GET ALL from the database");
 
   const jateDb = await openDB("jate", 1);
+  
 
-  const tx = jateDb.transaction("contact", "readonly");
+  const tx = jateDb.transaction("jate", "readonly");
+  console.log("jake tx: "+ tx);
 
   const store = tx.objectStore("jate");
+  console.log("jake store: "+ store);
 
   const request = store.getAll();
 
   const result = await request;
   console.log("Result", result)
+  if (result.length === 0) {
+    return null;
+  }
+  let s = "";
+  result.forEach(entry => {
+    s.concat(entry);
+  })
 
-  return result
+  return s;
 };
 // console.error('getDb not implemented');
 
